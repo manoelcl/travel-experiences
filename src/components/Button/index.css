@@ -1,0 +1,22 @@
+.button {
+  font-family: inherit;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  color: aliceblue;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: none;
+  text-decoration: none;
+  background-color: #90909080;
+  backdrop-filter: blur(5px);
+  box-shadow: 6px 6px 6px rgb(0, 0, 0, 0.5);
+}
+
+.button.large {
+  height: auto;
+  margin: 0;
+  width: auto;
+  border-radius: 0.5rem;
+}
