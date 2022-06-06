@@ -1,7 +1,7 @@
 import "./index.css";
 
-const Header = ({ children }) => {
-  return <header className="large">{children}</header>;
+const Header = ({ children, cName }) => {
+  return <header className={`large ${cName}`}>{children}</header>;
 };
 
 export default Header;

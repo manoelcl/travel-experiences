@@ -1,0 +1,10 @@
+.user-menu button {
+  border: none;
+  background: none;
+  color: white;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.3rem;
+  text-shadow: 3px 3px 3px rgb(0 0 0 / 25%);
+  cursor: pointer;
+}

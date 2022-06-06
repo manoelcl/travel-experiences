@@ -9,8 +9,10 @@ import Header from "../../components/Header";
 import Main from "../../components/Main";
 import UserMenu from "../../components/UserMenu";
 import CardPicker from "../../components/CardPicker";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header>
@@ -21,10 +23,10 @@ const Home = () => {
         </h1>
         <h2>Share your experience!</h2>
         <nav>
-          <Button text="Nearby">
+          <Button text="Nearby" callback={() => navigate("/nearby")}>
             <img src={nearby} alt="nearby logo" />
           </Button>
-          <Button text="Explore">
+          <Button text="Explore" callback={() => navigate("/explore")}>
             <img src={explore} alt="explore logo" />
           </Button>
         </nav>
