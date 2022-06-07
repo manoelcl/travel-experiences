@@ -5,6 +5,7 @@ import Home from "./views/Home";
 import Nearby from "./views/Nearby";
 import Explore from "./views/Explore";
 import Experience from "./views/Experience";
+import { User } from "./views/User/User";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/nearby" element={<Nearby />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/experience/:id" element={<Experience />} />
+          <Route path="/users/:id" element={<User />} />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </BrowserRouter>

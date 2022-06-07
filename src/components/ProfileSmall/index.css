@@ -1,0 +1,16 @@
+.profile-small {
+  display: inline;
+}
+.profile-small img {
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid white;
+  top: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-small a {
+  color: white;
+  text-decoration: underline;
+}

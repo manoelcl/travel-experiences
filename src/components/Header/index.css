@@ -53,3 +53,18 @@ header.experience .user-menu {
   display: block;
   width: fit-content;
 }
+
+header.nearby {
+  position: absolute;
+  width: 100%;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  z-index: 1100;
+  align-items: center;
+}
+header.nearby .user-menu {
+  display: block;
+  width: fit-content;
+}
