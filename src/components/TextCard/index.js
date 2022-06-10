@@ -3,19 +3,22 @@ import PropTypes from "prop-types";
 import DateField from "../DateField";
 import ProfileSmall from "../ProfileSmall";
 
-const TextCard = ({ title, text }) => {
+const TextCard = ({
+  data: { title, abstract, content, userId, username, creationDate },
+}) => {
   return (
     <article className="text-card">
-      <h3>Sample text</h3>
+      <h3>{title}</h3>
 
-      <p>A beach paradise near the center of the town</p>
+      <p>{abstract}</p>
 
-      <p>Description</p>
+      <p>{content}</p>
 
       <footer>
         <p>
-          Created by <ProfileSmall></ProfileSmall> in
-          <DateField timestamp=""></DateField>
+          Created by <ProfileSmall user={{ userId, username }}></ProfileSmall>
+          in
+          <DateField timestamp={creationDate}></DateField>
         </p>
       </footer>
     </article>

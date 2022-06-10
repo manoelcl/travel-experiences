@@ -5,7 +5,7 @@ const Button = ({ callback, text, children }) => {
   return (
     <button className={text ? "button large" : "button"} onClick={callback}>
       {children}
-      {text}
+      {text ? text : null}
     </button>
   );
 };

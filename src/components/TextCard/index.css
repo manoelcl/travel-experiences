@@ -14,6 +14,14 @@
     2px 2px 2px inset rgba(255, 255, 255, 0.15), 6px 6px 6px rgb(0 0 0 / 15%);
 }
 
+.text-card p:nth-of-type(2) {
+  flex-grow: 1;
+}
+
+.text-card .profile-small {
+  padding: 0;
+}
+
 .text-card h3 {
   padding: 0.5rem;
   color: aliceblue;

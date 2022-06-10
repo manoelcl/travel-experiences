@@ -1,7 +1,11 @@
+import "./index.css";
+
 import Button from "../Button";
 import locationIcon from "../../icons/location.svg";
 import messageIcon from "../../icons/message.svg";
 import shareIcon from "../../icons/send_mail.svg";
+
+import { RWebShare } from "react-web-share";
 
 const ButtonsMenu = () => {
   return (
@@ -12,9 +16,18 @@ const ButtonsMenu = () => {
       <Button>
         <img src={messageIcon}></img>
       </Button>
-      <Button>
-        <img src={shareIcon}></img>
-      </Button>
+      <RWebShare
+        data={{
+          text: "Amazing experience in this place",
+          url: window.location.href,
+          title: "Experience",
+        }}
+        onClick={() => console.log("shared successfully!")}
+      >
+        <button className="button">
+          <img src={shareIcon}></img>
+        </button>
+      </RWebShare>
     </div>
   );
 };
