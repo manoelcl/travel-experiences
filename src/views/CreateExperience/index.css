@@ -23,3 +23,19 @@ main.nearby {
 main.nearby .card {
   margin: 1rem 1rem;
 }
+
+main.nearby form {
+  margin: 1rem;
+  padding: 1rem;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 1rem 1rem 1rem black;
+  border-radius: 1rem;
+}
+
+main.nearby form fieldset {
+  border: none;
+}

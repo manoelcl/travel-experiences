@@ -1,7 +1,3 @@
-import "./index.css";
-
-const Main = ({ children, cName }) => {
-  return <main className={cName}>{children}</main>;
-};
+import { Main } from "./Main";
 
 export default Main;

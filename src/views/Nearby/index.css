@@ -18,6 +18,7 @@ main.nearby {
     transparent 85%,
     rgb(161, 161, 161)
   );
+  justify-content: flex-start;
 }
 
 main.nearby .card {

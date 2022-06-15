@@ -12,7 +12,7 @@ export const ProfileSmall = ({
       <a href={"/users/" + userId}>
         {username}{" "}
         <img
-          style={{ width: "1.5rem", height: "1.5rem" }}
+          style={{ width: "1.1rem", height: "1.1rem" }}
           src={profilePic}
           alt={`user ${username} profile pic`}
         />

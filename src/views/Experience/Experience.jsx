@@ -11,12 +11,18 @@ import ButtonsMenu from "../../components/ButtonsMenu";
 import backArrowIcon from "../../icons/BackArrow.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import getExperienceById from "../../services/getExperienceById";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Comments from "../../components/Comments";
+import InteractionBackground from "../../components/InteractionBackground";
+import voteExperienceService from "../../services/voteExperienceService";
+import { UserContext } from "../../helpers/Context";
 
 export const Experience = () => {
-  let { id } = useParams();
-  const [experience, setExperience] = useState();
   const navigate = useNavigate();
+  let { id } = useParams();
+  const { token } = useContext(UserContext);
+  const [experience, setExperience] = useState();
+  const [openSection, setOpenSection] = useState();
 
   useEffect(() => {
     const asyncRequest = async () => {
@@ -27,17 +33,36 @@ export const Experience = () => {
     asyncRequest();
   }, []);
 
+  const handleVoting = (userInput) => {
+    console.log(userInput);
+    voteExperienceService(id, userInput, token);
+  };
+
   return (
     <>
       <Header cName="experience">
         <Button callback={() => navigate(-1)}>
           <img src={backArrowIcon}></img>
         </Button>
-        <Rating rating={experience ? +experience.average : null}></Rating>
+        <Rating
+          callbackEvent={handleVoting}
+          rating={experience ? +experience.average : null}
+        ></Rating>
         <UserMenu></UserMenu>
       </Header>
       <Main cName="experience">
-        <ButtonsMenu></ButtonsMenu>
+        <ButtonsMenu
+          callbackEvents={[
+            () => setOpenSection("location"),
+            () => setOpenSection("comments"),
+          ]}
+        ></ButtonsMenu>
+        {openSection ? (
+          <InteractionBackground callbackEvent={() => setOpenSection(null)}>
+            {openSection === "comments" ? <Comments id={id} /> : null}
+            {openSection === "location" ? <Comments id={id} /> : null}
+          </InteractionBackground>
+        ) : null}
         {experience ? (
           <TextCard data={experience}></TextCard>
         ) : (

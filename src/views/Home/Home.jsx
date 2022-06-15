@@ -45,7 +45,9 @@ export const Home = () => {
       </Header>
       <Main>
         <CardPicker cardsArray={experiences}></CardPicker>
-        <Button color="blue">+</Button>
+        <Button color="blue" callback={() => navigate("/create")}>
+          +
+        </Button>
       </Main>
       <Background
         img={

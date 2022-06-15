@@ -1,7 +1,3 @@
-import "./index.css";
-
-const Header = ({ children, cName }) => {
-  return <header className={`large ${cName}`}>{children}</header>;
-};
+import { Header } from "./Header";
 
 export default Header;
