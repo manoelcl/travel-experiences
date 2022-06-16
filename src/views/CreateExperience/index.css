@@ -8,34 +8,44 @@
   top: 45px;
 }
 
-main.nearby {
+main.create-experience {
   height: 100vh;
+  justify-content: flex-start;
   background-color: #e0e0e0;
   background-image: linear-gradient(
     90deg,
-    rgb(161, 161, 161),
+    #00a2ff50,
     transparent 15%,
     transparent 85%,
-    rgb(161, 161, 161)
+    #00a3ff50
   );
 }
 
-main.nearby .card {
+main.create-experience .card {
   margin: 1rem 1rem;
 }
 
-main.nearby form {
-  margin: 1rem;
-  padding: 1rem;
-  gap: 0.5rem;
+main.create-experience form {
+  font-size: 1.3rem;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.404);
+  color: white;
   display: flex;
+  margin: 1rem;
+  gap: 0.5rem;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 1rem 1rem 1rem black;
+  align-items: center;
+  padding: 1rem;
+  background-color: #90909050;
+  z-index: 4;
   border-radius: 1rem;
+  box-shadow: 6px 6px 6px rgb(0, 0, 0, 0.15),
+    2px 2px 4px inset rgba(255, 255, 255, 0.15);
 }
 
-main.nearby form fieldset {
+main.create-experience form fieldset {
+  border: none;
+}
+
+main.create-experience form fieldset {
   border: none;
 }

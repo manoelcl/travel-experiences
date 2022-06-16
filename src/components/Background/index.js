@@ -1,3 +1,3 @@
-import { Background } from "./Backgroun";
+import { Background } from "./Background";
 
 export default Background;

@@ -18,53 +18,52 @@ import CardList from "../../components/CardList";
 import { useNavigate } from "react-router-dom";
 
 import backArrowIcon from "../../icons/BackArrow.svg";
-import nearby from "../../icons/Archery.svg";
+import exploreIcon from "../../icons/Internet.svg";
 import Main from "../../components/Main";
 import listNearbyService from "../../services/listNearbyService";
 import velienceMapIcon from "../../icons/leaflet/velienceMapIcon";
-import { latLng } from "leaflet";
 
-function MapEventsComponent({ callbackEvent }) {
+// function MapEventsComponent({ event }) {
+//   const map = useMapEvents({
+//     click: (e) => {
+//       console.log(e.latlng);
+//       event([
+//         ((e.latlng.lat + 90) % 180) - 90,
+//         ((e.latlng.lng + 180) % 360) - 180,
+//       ]);
+//     },
+//   });
+//   return null;
+// }
+
+function MapEventsComponent({ event }) {
   const map = useMapEvents({
     moveend: (e) => {
-      const center = map.getCenter();
-      const upperlimit = map.getBounds().getNorth();
-      const north = latLng(upperlimit, center.lng);
-      const distance = center.distanceTo(north) / 1000;
-
-      callbackEvent([center.lat, center.lng, distance]);
+      console.log(map.getCenter());
     },
   });
   return null;
 }
 
-export const Nearby = () => {
+export const Explore = () => {
   const navigate = useNavigate();
   const [center, setCenter] = useState();
   const [experiences, setExperiences] = useState();
 
-  const updateExperiences = async () => {
-    console.log(center);
-    const results = await listNearbyService({
-      distance: center[2],
-      lat: center[0],
-      lon: center[1],
-    });
-
-    if ((results.status = "ok")) {
-      setExperiences(results.data);
-    }
-  };
-
   useEffect(() => {
-    if (!center) return;
-
     const asyncRequest = async () => {
-      updateExperiences();
+      const results = await listNearbyService({
+        distance: 10,
+        lat: 43.3564,
+        lon: -8.42566,
+      });
+
+      if ((results.status = "ok")) {
+        setExperiences(results.data);
+      }
     };
     asyncRequest();
-  }, [center]);
-
+  }, []);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) =>
@@ -83,21 +82,20 @@ export const Nearby = () => {
         <Button callback={() => navigate(-1)}>
           <img src={backArrowIcon}></img>
         </Button>
-        <Button text="Nearby">
-          <img src={nearby} alt="nearby logo" />
+        <Button text="Explore">
+          <img src={exploreIcon} alt="nearby logo" />
         </Button>
         <UserMenu></UserMenu>
       </Header>
       <Main cName="nearby">
         {center ? (
           <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
-            <MapEventsComponent
-              callbackEvent={(data) => setCenter(data)}
-            ></MapEventsComponent>
+            <MapEventsComponent></MapEventsComponent>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
             {experiences?.map((experience, index) => {
               return (
                 <Marker
@@ -105,7 +103,7 @@ export const Nearby = () => {
                   position={[experience.lat, experience.lon]}
                   icon={velienceMapIcon}
                 >
-                  <Popup>{experience.title}</Popup>
+                  <Popup>Marker nº{index}</Popup>
                 </Marker>
               );
             })}
@@ -113,6 +111,7 @@ export const Nearby = () => {
         ) : (
           <p>Geolocating...</p>
         )}
+        <form></form>
         {experiences ? <CardList cards={experiences}></CardList> : null}
       </Main>
     </>

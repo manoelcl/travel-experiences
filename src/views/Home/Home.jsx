@@ -12,6 +12,7 @@ import CardPicker from "../../components/CardPicker";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getStaffPicks from "../../services/getStaffPicks";
+import imageAddress from "../../helpers/imageAddress";
 
 export const Home = () => {
   const [experiences, setExperiences] = useState();
@@ -51,7 +52,9 @@ export const Home = () => {
       </Main>
       <Background
         img={
-          "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQ5-2H4TeBVEPxIPsLDJe0cJrjQ0cqNxD3LVomOHg7Phbgv4I8N0-tOqN7Aohtdx82D9xY8S7LM7Rd2pfI1CGo"
+          experiences
+            ? imageAddress(experiences[0].photo)
+            : "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQ5-2H4TeBVEPxIPsLDJe0cJrjQ0cqNxD3LVomOHg7Phbgv4I8N0-tOqN7Aohtdx82D9xY8S7LM7Rd2pfI1CGo"
         }
       ></Background>
     </>

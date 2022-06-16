@@ -38,9 +38,13 @@ function MapEventsComponent({ event }) {
 export const CreateExperience = () => {
   const navigate = useNavigate();
   const { myUser, token } = useContext(UserContext);
-  const [center, setCenter] = useState();
-  const [marker, setMarker] = useState([0, -0.09]);
-  const [formData, setFormData] = useState({});
+  const [redirect, setRedirect] = useState();
+  const [center, setCenter] = useState([
+    43.369950538301964, -8.398892283439638,
+  ]);
+  const [marker, setMarker] = useState([
+    43.369950538301964, -8.398892283439638,
+  ]);
 
   useEffect(
     () =>
@@ -50,18 +54,19 @@ export const CreateExperience = () => {
     []
   );
 
-  const changeHandler = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(e.target.value);
-  };
-
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-
-    console.log("hellow");
-    postExperienceService(data, token);
+    data.append("lat", marker[0]);
+    data.append("lon", marker[1]);
+    const response = await postExperienceService(data, token);
+    if (response.status === "ok") {
+      console.log(response.data);
+      setRedirect(response.data);
+      navigate(`/experience/${response.data}`);
+    }
   };
+
   return (
     <>
       <Header cName="nearby">
@@ -74,7 +79,7 @@ export const CreateExperience = () => {
         <UserMenu></UserMenu>
       </Header>
       {myUser ? (
-        <Main cName="nearby">
+        <Main cName="create-experience">
           {center ? (
             <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
               <MapEventsComponent
@@ -99,7 +104,6 @@ export const CreateExperience = () => {
               name="title"
               placeholder="A cool name"
               autoComplete="off"
-              onChange={changeHandler}
               required
             />
             <label htmlFor="abstract">Abstract</label>
@@ -109,7 +113,6 @@ export const CreateExperience = () => {
               name="abstract"
               placeholder="What makes it unique?"
               autoComplete="off"
-              onChange={changeHandler}
               required
             />
             <label htmlFor="content">Content</label>
@@ -119,7 +122,6 @@ export const CreateExperience = () => {
               name="content"
               placeholder="A detailed description"
               autoComplete="off"
-              onChange={changeHandler}
               required
             />
             <fieldset>
@@ -129,7 +131,6 @@ export const CreateExperience = () => {
                 name="classId"
                 value="travel"
                 defaultChecked="checked"
-                onChange={changeHandler}
               />
               <label htmlFor="travel">Travel</label>
 
@@ -138,11 +139,10 @@ export const CreateExperience = () => {
                 id="experience"
                 name="classId"
                 value="experience"
-                onChange={changeHandler}
               />
               <label htmlFor="experience">Experience</label>
             </fieldset>
-            <input type="file" required />
+            <input type="file" name="photo" required />
             <Button text="Send"></Button>
           </form>
         </Main>

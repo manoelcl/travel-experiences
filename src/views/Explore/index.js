@@ -1,7 +1,3 @@
-import "./index.css";
-
-const Explore = () => {
-  return <div></div>;
-};
+import { Explore } from "./Explore";
 
 export default Explore;

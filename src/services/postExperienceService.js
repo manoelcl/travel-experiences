@@ -11,7 +11,7 @@ const postExperienceService = async (data, token) => {
       },
     });
     const response = await request.json();
-    console.log(response);
+
     return response;
   } catch (err) {
     throw err;

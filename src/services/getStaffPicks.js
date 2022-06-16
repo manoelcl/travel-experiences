@@ -1,9 +1,9 @@
 import { BACKEND } from "../env";
 
 const getStaffPicks = async () => {
-  const request = await fetch(`${BACKEND}/recommendations`);
+  const request = await fetch(`${BACKEND}/recommendations/staffpicks`);
   const { data } = await request.json();
-  console.log(data.message);
+
   return data;
 };
 

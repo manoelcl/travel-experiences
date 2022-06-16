@@ -12,7 +12,7 @@ export const Rating = ({ rating, callbackEvent }) => {
         starsArray.push(
           <img
             key={i}
-            onClick={() => callbackEvent(i)}
+            onClick={callbackEvent ? () => callbackEvent(i + 1) : null}
             src={shapeActive}
             alt="star"
           ></img>
@@ -21,7 +21,7 @@ export const Rating = ({ rating, callbackEvent }) => {
         starsArray.push(
           <img
             key={i}
-            onClick={() => callbackEvent(i)}
+            onClick={callbackEvent ? () => callbackEvent(i + 1) : null}
             src={shape}
             alt="star"
           ></img>
@@ -31,7 +31,7 @@ export const Rating = ({ rating, callbackEvent }) => {
     return starsArray;
   };
 
-  return <div className="rating">{generateStars()}</div>;
+  return <div className={"rating"}>{generateStars()}</div>;
 };
 
 Rating.propTypes = {

@@ -34,7 +34,7 @@ export const User = () => {
   useEffect(() => {
     const asyncRequest = async () => {
       const request = await listExperiences({ idUser: id });
-      console.log(request);
+
       if (request.status === "ok") {
         setUserExperiences(request.data);
       }

@@ -11,16 +11,25 @@
 main.nearby {
   height: 100vh;
   background-color: #e0e0e0;
-  background-image: linear-gradient(
-    90deg,
-    rgb(161, 161, 161),
-    transparent 15%,
-    transparent 85%,
-    rgb(161, 161, 161)
-  );
+
   justify-content: flex-start;
 }
 
 main.nearby .card {
   margin: 1rem 1rem;
+}
+
+main.nearby .card-list {
+  display: flex;
+  margin: 1rem;
+  box-shadow: 3px 3px 3px #c2c2c2 inset;
+  border-radius: 1rem;
+  flex-direction: row;
+  gap: 0;
+  flex-grow: 1;
+  max-width: 1000px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  overflow: auto;
+  background-color: #d3e2ec;
 }

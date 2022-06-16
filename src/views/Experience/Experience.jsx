@@ -16,6 +16,11 @@ import Comments from "../../components/Comments";
 import InteractionBackground from "../../components/InteractionBackground";
 import voteExperienceService from "../../services/voteExperienceService";
 import { UserContext } from "../../helpers/Context";
+import imageAddress from "../../helpers/imageAddress";
+
+import "leaflet/dist/leaflet.css";
+import MiniMap from "../../components/MiniMap";
+import ErrorAlert from "../../components/ErrorAlert";
 
 export const Experience = () => {
   const navigate = useNavigate();
@@ -23,6 +28,7 @@ export const Experience = () => {
   const { token } = useContext(UserContext);
   const [experience, setExperience] = useState();
   const [openSection, setOpenSection] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     const asyncRequest = async () => {
@@ -33,9 +39,15 @@ export const Experience = () => {
     asyncRequest();
   }, []);
 
-  const handleVoting = (userInput) => {
+  const handleVoting = async (userInput) => {
     console.log(userInput);
-    voteExperienceService(id, userInput, token);
+    const response = await voteExperienceService(id, userInput, token);
+    if (response.status === "ok") {
+      const results = await getExperienceById(id);
+      setExperience(results);
+    } else {
+      setError(response);
+    }
   };
 
   return (
@@ -60,16 +72,21 @@ export const Experience = () => {
         {openSection ? (
           <InteractionBackground callbackEvent={() => setOpenSection(null)}>
             {openSection === "comments" ? <Comments id={id} /> : null}
-            {openSection === "location" ? <Comments id={id} /> : null}
+            {openSection === "location" ? (
+              <MiniMap center={[experience.lat, experience.lon]} />
+            ) : null}
           </InteractionBackground>
         ) : null}
-        {experience ? (
-          <TextCard data={experience}></TextCard>
-        ) : (
-          <h3>Loading data...</h3>
-        )}
+        <ErrorAlert error={error} callbackEvent={() => setError(null)} />
+        {experience ? <TextCard data={experience} /> : <h3>Loading data...</h3>}
       </Main>
-      <Background img="http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQ5-2H4TeBVEPxIPsLDJe0cJrjQ0cqNxD3LVomOHg7Phbgv4I8N0-tOqN7Aohtdx82D9xY8S7LM7Rd2pfI1CGo"></Background>
+      <Background
+        img={
+          experience
+            ? imageAddress(experience.photo)
+            : "url(http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQ5-2H4TeBVEPxIPsLDJe0cJrjQ0cqNxD3LVomOHg7Phbgv4I8N0-tOqN7Aohtdx82D9xY8S7LM7Rd2pfI1CGo)"
+        }
+      />
     </>
   );
 };
