@@ -30,9 +30,11 @@ export const MiniMap = ({ center }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <Marker icon={velienceMapIcon} position={center}>
-        <Popup>{}</Popup>
-      </Marker>
+      {
+        <Marker icon={velienceMapIcon} position={center}>
+          <Popup>{}</Popup>
+        </Marker>
+      }
     </MapContainer>
   );
 };

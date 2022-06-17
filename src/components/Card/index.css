@@ -70,3 +70,7 @@
   grid-area: button;
   margin-right: 0.5rem;
 }
+.card.highlighted {
+  transform: scale(1.01);
+  background: rgba(153, 153, 153, 0.76);
+}

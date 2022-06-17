@@ -10,7 +10,7 @@ import ProfileSmall from "../ProfileSmall";
 
 export const Comments = ({ id }) => {
   const [comments, setComments] = useState();
-  const { token } = useContext(UserContext);
+  const { myUser, token } = useContext(UserContext);
 
   useEffect(() => {
     const asyncRequest = async () => {
@@ -24,32 +24,53 @@ export const Comments = ({ id }) => {
     asyncRequest();
   }, []);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
 
     console.log("submit", data);
-    postCommentService(id, data, token);
+    const response = await postCommentService(id, data, token);
+    e.target.value = "";
+    if (response.status === "ok") {
+      setComments([
+        { ...response.data, username: myUser.username },
+        ...comments,
+      ]);
+      console.log(response.data.userId);
+    }
+    e.target.reset();
   };
 
   return (
     <div className="comments">
-      {comments
-        ? comments.map((comment) => (
-            <article key={comment.commentId} className="comment">
-              <p>{comment.content}</p>{" "}
-              <ProfileSmall
-                user={{ username: comment.username, userId: comment.userId }}
-              />
-            </article>
-          ))
-        : null}
+      <div className="comments-container">
+        {comments
+          ? comments.map((comment) => (
+              <article
+                key={comment.commentId}
+                className={`comment ${
+                  myUser?.userId === comment.userId ? "user" : null
+                }`}
+              >
+                <p>{comment.content}</p>{" "}
+                <ProfileSmall
+                  user={{ username: comment.username, userId: comment.userId }}
+                />
+              </article>
+            ))
+          : null}
+      </div>
+
       <form onSubmit={submitHandler}>
         <input
+          readOnly={!myUser}
+          autoComplete="off"
           type="text"
           id="content"
           name="content"
-          placeholder="Type a new comment..."
+          autoFocus
+          maxLength={300}
+          placeholder={myUser ? "Type a new comment..." : "Login to comment"}
         />
       </form>
     </div>

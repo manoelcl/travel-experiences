@@ -67,6 +67,7 @@ export const LoginMenu = ({ callbackEvent }) => {
                 id="username"
                 name="username"
                 type="text"
+                maxLength={100}
                 required
               />
             </>
@@ -78,6 +79,7 @@ export const LoginMenu = ({ callbackEvent }) => {
             name="email"
             id="email"
             type="email"
+            maxLength={100}
             required
           />
           <label htmlFor="password">Password</label>
@@ -86,6 +88,7 @@ export const LoginMenu = ({ callbackEvent }) => {
             id="password"
             name="password"
             type="password"
+            maxLength={100}
             required
           />
           {register === "Signup" ? (
@@ -96,6 +99,7 @@ export const LoginMenu = ({ callbackEvent }) => {
                 id="password2"
                 name="password2"
                 type="password"
+                maxLength={100}
                 required
               />
             </>

@@ -23,6 +23,8 @@ main.nearby .card-list {
   display: flex;
   margin: 1rem;
   box-shadow: 3px 3px 3px #c2c2c2 inset;
+  max-height: 60vh;
+  width: min(calc(100% - 1rem), 800px);
   border-radius: 1rem;
   flex-direction: row;
   gap: 0;

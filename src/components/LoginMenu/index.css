@@ -44,4 +44,5 @@
 .login-menu span {
   padding: 0;
   cursor: pointer;
+  color: var(--velience-color);
 }

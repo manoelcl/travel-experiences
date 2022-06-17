@@ -5,11 +5,14 @@ import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import imageAddress from "../../helpers/imageAddress";
 
-export const Card = ({ cardData }) => {
+export const Card = ({ cardData, classSpecial, onclick }) => {
   const navigate = useNavigate();
   let id = cardData.id;
   return (
-    <article className="card">
+    <article
+      onClick={onclick ? onclick : null}
+      className={`card ${classSpecial}`}
+    >
       <h3>
         {cardData.title}
         {cardData.distance ? (
