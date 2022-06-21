@@ -1,8 +1,8 @@
 import "./index.css";
-import backArrowIcon from "../../icons/BackArrow.svg";
-import nearby from "../../icons/Archery.svg";
+import "leaflet/dist/leaflet.css";
 
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   Marker,
@@ -11,14 +11,14 @@ import {
   useMapEvents,
 } from "react-leaflet";
 
-import "leaflet/dist/leaflet.css";
-
 import Header from "../../components/Header";
 import Main from "../../components/Main";
 import UserMenu from "../../components/UserMenu";
 import Button from "../../components/Button";
 
-import { useNavigate } from "react-router-dom";
+import backArrowIcon from "../../icons/BackArrow.svg";
+import nearby from "../../icons/Archery.svg";
+
 import { UserContext } from "../../helpers/Context";
 import postExperienceService from "../../services/postExperienceService";
 

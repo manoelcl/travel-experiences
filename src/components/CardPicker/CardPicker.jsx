@@ -11,9 +11,13 @@ export const CardPicker = ({ cardsArray, eventCallback }) => {
   const ref = useRef();
 
   const [focusedElement, setFocusedElement] = useState(0);
+
   useEffect(() => {
     if (eventCallback) eventCallback(focusedElement);
-    ref.current?.children[focusedElement]?.scrollIntoView();
+    ref.current?.children[focusedElement]?.scrollIntoView({
+      inline: "center",
+      behavior: "smooth",
+    });
   }, [focusedElement]);
 
   if (!cardsArray) return null;

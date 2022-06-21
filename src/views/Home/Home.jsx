@@ -1,16 +1,20 @@
+//CSS
 import "./index.css";
-
+//LIBRARIES
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+//COMPONENTS
+import Header from "../../components/Header";
+import Main from "../../components/Main";
 import Background from "../../components/Background";
+import UserMenu from "../../components/UserMenu";
 import Button from "../../components/Button";
+import CardPicker from "../../components/CardPicker";
+//IMAGES
 import logo from "../../icons/Velience.svg";
 import nearby from "../../icons/Archery.svg";
 import explore from "../../icons/Internet.svg";
-import Header from "../../components/Header";
-import Main from "../../components/Main";
-import UserMenu from "../../components/UserMenu";
-import CardPicker from "../../components/CardPicker";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+
 import getStaffPicks from "../../services/getStaffPicks";
 import imageAddress from "../../helpers/imageAddress";
 
@@ -30,7 +34,7 @@ export const Home = () => {
   return (
     <>
       <Header>
-        <UserMenu></UserMenu>
+        <UserMenu />
         <h1>
           <img src={logo} alt="Velience logo" />
           Velience

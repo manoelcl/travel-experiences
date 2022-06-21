@@ -52,15 +52,17 @@ export const Experience = () => {
 
   return (
     <>
-      <Header cName="experience">
-        <Button callback={() => navigate(-1)}>
-          <img src={backArrowIcon}></img>
-        </Button>
-        <Rating
-          callbackEvent={handleVoting}
-          rating={experience ? +experience.average : null}
-        ></Rating>
+      <Header cName="nearby">
         <UserMenu></UserMenu>
+        <h1>
+          <Button callback={() => navigate(-1)}>
+            <img src={backArrowIcon}></img>
+          </Button>
+          <Rating
+            callbackEvent={handleVoting}
+            rating={experience ? +experience.average : null}
+          ></Rating>
+        </h1>
       </Header>
       <Main cName="experience">
         <ButtonsMenu

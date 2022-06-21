@@ -2,8 +2,8 @@ import { BACKEND } from "../env";
 
 const listExperiences = async (search) => {
   try {
-    let queryParams = new URLSearchParams(search).toString();
-    const request = await fetch(`${BACKEND}/recommendations?${queryParams}`);
+    console.log(search);
+    const request = await fetch(`${BACKEND}/recommendations/?${search}`);
     const response = await request.json();
     return response;
   } catch (err) {

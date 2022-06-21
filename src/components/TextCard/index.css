@@ -1,11 +1,12 @@
 .text-card {
+  hyphens: auto;
+  width: min(500px, calc(100% - 1rem));
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-radius: 1rem;
   position: relative;
-  max-width: 600px;
-  height: 200px;
   margin: 1rem;
   box-shadow: 6px 6px 6px rgb(0, 0, 0, 0.5);
   background-color: #90909020;
@@ -34,7 +35,13 @@
   padding: 0.5rem;
   color: aliceblue;
   text-align: justify;
-  overflow: auto;
+  overflow: none;
   hyphens: auto;
   font-weight: bold;
+}
+
+.text-card p:nth-of-type(2) {
+  overflow: auto;
+}
+.experience .text-card {
 }

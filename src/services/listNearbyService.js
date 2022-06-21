@@ -3,6 +3,7 @@ import { BACKEND } from "../env";
 const listNearbyService = async (search) => {
   try {
     let queryParams = new URLSearchParams(search).toString();
+    console.log(queryParams);
     const request = await fetch(
       `${BACKEND}/recommendations/nearby/?${queryParams}`
     );

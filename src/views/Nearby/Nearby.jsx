@@ -95,13 +95,15 @@ export const Nearby = () => {
   return (
     <>
       <Header cName="nearby">
-        <Button callback={() => navigate("/")}>
-          <img src={backArrowIcon}></img>
-        </Button>
-        <Button text="Nearby">
-          <img src={nearby} alt="nearby logo" />
-        </Button>
         <UserMenu></UserMenu>
+        <h1>
+          <Button callback={() => navigate("/")}>
+            <img src={backArrowIcon}></img>
+          </Button>
+          <Button text="Nearby">
+            <img src={nearby} alt="nearby logo" />
+          </Button>
+        </h1>
       </Header>
       <Main cName="nearby">
         {center ? (

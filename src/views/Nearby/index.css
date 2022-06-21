@@ -5,13 +5,12 @@
 }
 
 .leaflet-top.leaflet-left {
-  top: 45px;
+  top: 50px;
 }
 
 main.nearby {
   height: 100vh;
   background-color: #e0e0e0;
-
   justify-content: flex-start;
 }
 
