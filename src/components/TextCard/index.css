@@ -17,6 +17,8 @@
 
 .text-card p:nth-of-type(2) {
   flex-grow: 1;
+  overflow-y: scroll;
+  max-height: 30vh;
 }
 
 .text-card .profile-small {
@@ -35,13 +37,7 @@
   padding: 0.5rem;
   color: aliceblue;
   text-align: justify;
-  overflow: none;
+
   hyphens: auto;
   font-weight: bold;
-}
-
-.text-card p:nth-of-type(2) {
-  overflow: auto;
-}
-.experience .text-card {
 }

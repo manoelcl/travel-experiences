@@ -8,6 +8,7 @@
 .experience .buttons-menu {
   width: 100%;
   padding: 1rem;
+  padding-top: 5rem;
   display: flex;
   align-items: flex-end;
   flex-direction: column;

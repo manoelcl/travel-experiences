@@ -3,47 +3,29 @@ import "leaflet/dist/leaflet.css";
 
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMapEvents,
-} from "react-leaflet";
-import { latLng } from "leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 import Header from "../../components/Header";
+import Main from "../../components/Main";
+import CardList from "../../components/CardList";
 import UserMenu from "../../components/UserMenu";
 import Button from "../../components/Button";
-import CardList from "../../components/CardList";
 
 import backArrowIcon from "../../icons/BackArrow.svg";
 import exploreIcon from "../../icons/Internet.svg";
-import Main from "../../components/Main";
-import listNearbyService from "../../services/listNearbyService";
+
 import velienceMapIcon from "../../icons/leaflet/velienceMapIcon";
 import velienceMapIconRed from "../../icons/leaflet/velienceMapIconRed";
-import listExperiences from "../../services/listExperiences";
 
-function MapEventsComponent({ event }) {
-  const map = useMapEvents({
-    click: (e) => {
-      console.log(e.latlng);
-      event([
-        ((e.latlng.lat + 90) % 180) - 90,
-        ((e.latlng.lng + 180) % 360) - 180,
-      ]);
-    },
-  });
-  return null;
-}
+import listExperiencesService from "../../services/listExperiencesService";
+import MapEventsComponentOnClick from "../../components/MapHelpers/MapEventsComponentOnClick";
 
 export const Explore = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [center, setCenter] = useState([35, 0, 2000]);
+  const [center] = useState([35, 0, 2000]);
   const [experiences, setExperiences] = useState();
-  const [searchLocation, setSearchLocation] = useState([35, 0]);
+  const [searchLocation, setSearchLocation] = useState();
   const [currentExperience, setCurrentExperience] = useState();
   const formRef = useRef();
 
@@ -63,10 +45,12 @@ export const Explore = () => {
     search.append("lat", searchLocation[0]);
     search.append("lon", searchLocation[1]);
     search.append("distance", params.get("distance"));
+    //Set the params
+    setSearchParams(search);
 
     const queryString = search.toString();
     console.log(queryString);
-    const results = await listExperiences(queryString);
+    const results = await listExperiencesService(queryString);
     if ((results.status = "ok")) {
       setExperiences(results.data);
     } else {
@@ -75,6 +59,7 @@ export const Explore = () => {
   };
 
   useEffect(() => {
+    if (!searchLocation) return;
     const asyncRequest = async () => {
       updateExperiences();
     };
@@ -82,20 +67,27 @@ export const Explore = () => {
   }, [searchLocation]);
 
   useEffect(() => {
-    if (!searchParams) return;
-    setCenter([
-      searchParams.get("lat"),
-      searchParams.get("lon"),
-      searchParams.get("distance"),
-    ]);
-  }, [useSearchParams]);
-
+    if (
+      searchParams.has("lat") &&
+      searchParams.has("lon") &&
+      searchParams.has("distance")
+    ) {
+      setSearchLocation([
+        searchParams.get("lat"),
+        searchParams.get("lon"),
+        searchParams.get("distance"),
+      ]);
+      console.log(formRef);
+    } else {
+      setSearchLocation([0, 0, 0]);
+    }
+  }, []);
   return (
     <>
       <Header cName="nearby">
         <UserMenu></UserMenu>
         <h1>
-          <Button callback={() => navigate(-1)}>
+          <Button callback={() => navigate("/")}>
             <img src={backArrowIcon}></img>
           </Button>
           <Button text="Explore">
@@ -107,7 +99,7 @@ export const Explore = () => {
       <Main cName="nearby">
         {center ? (
           <MapContainer center={center} zoom={2} scrollWheelZoom={true}>
-            <MapEventsComponent event={setSearchLocation} />
+            <MapEventsComponentOnClick event={setSearchLocation} />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -140,29 +132,34 @@ export const Explore = () => {
           <p>Geolocating...</p>
         )}
 
-        <form ref={formRef}>
-          <label htmlFor="experience">Experience</label>
-          <input
-            onChange={updateExperiences}
-            type="checkbox"
-            name="experience"
-            id="experience"
-          />
-          <label htmlFor="travel">Travel</label>
-          <input
-            onChange={updateExperiences}
-            type="checkbox"
-            name="travel"
-            id="travel"
-          />
-
-          <label htmlFor="distance">Distance</label>
-          <input
-            onChange={updateExperiences}
-            type="range"
-            id="distance"
-            name="distance"
-          />
+        <form className="explore-bar" ref={formRef}>
+          <fieldset>
+            <label htmlFor="experience">Experience</label>
+            <input
+              onChange={updateExperiences}
+              type="checkbox"
+              name="experience"
+              id="experience"
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="travel">Travel</label>
+            <input
+              onChange={updateExperiences}
+              type="checkbox"
+              name="travel"
+              id="travel"
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="distance">Distance</label>
+            <input
+              onChange={updateExperiences}
+              type="range"
+              id="distance"
+              name="distance"
+            />
+          </fieldset>
         </form>
 
         {experiences ? (
@@ -170,7 +167,11 @@ export const Explore = () => {
             selectedId={currentExperience}
             cards={experiences}
           ></CardList>
-        ) : null}
+        ) : (
+          <div className="card-list">
+            <h2>No experiences were found in your area</h2>
+          </div>
+        )}
       </Main>
     </>
   );

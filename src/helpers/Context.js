@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
-import getUserData from "../services/getUserData";
+import getUserDataService from "../services/getUserDataService";
 
 export const UserContext = createContext();
 
@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const asyncRequest = async (id) => {
-      setMyUser(await getUserData(id));
+      setMyUser(await getUserDataService(id));
     };
     if (token) {
       const myUserId = jwtDecode(token).id;

@@ -18,9 +18,11 @@ import Button from "../../components/Button";
 
 import backArrowIcon from "../../icons/BackArrow.svg";
 import nearby from "../../icons/Archery.svg";
+import velienceMapIcon from "../../icons/leaflet/velienceMapIcon";
 
 import { UserContext } from "../../helpers/Context";
 import postExperienceService from "../../services/postExperienceService";
+import LoginMenu from "../../components/LoginMenu";
 
 function MapEventsComponent({ event }) {
   const map = useMapEvents({
@@ -38,7 +40,7 @@ function MapEventsComponent({ event }) {
 export const CreateExperience = () => {
   const navigate = useNavigate();
   const { myUser, token } = useContext(UserContext);
-  const [redirect, setRedirect] = useState();
+  const [login, setLogin] = useState(false);
   const [center, setCenter] = useState([
     43.369950538301964, -8.398892283439638,
   ]);
@@ -61,8 +63,6 @@ export const CreateExperience = () => {
     data.append("lon", marker[1]);
     const response = await postExperienceService(data, token);
     if (response.status === "ok") {
-      console.log(response.data);
-      setRedirect(response.data);
       navigate(`/experience/${response.data}`);
     }
   };
@@ -70,13 +70,16 @@ export const CreateExperience = () => {
   return (
     <>
       <Header cName="nearby">
-        <Button callback={() => navigate(-1)}>
-          <img src={backArrowIcon}></img>
-        </Button>
-        <Button text="Create Experience">
-          <img src={nearby} alt="nearby logo" />
-        </Button>
-        <UserMenu></UserMenu>
+        <UserMenu />
+        <h1>
+          <Button callback={() => navigate(-1)}>
+            <img src={backArrowIcon}></img>
+          </Button>
+
+          <Button text="Create Experience">
+            <img src={nearby} alt="nearby logo" />
+          </Button>
+        </h1>
       </Header>
       {myUser ? (
         <Main cName="create-experience">
@@ -89,7 +92,7 @@ export const CreateExperience = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={marker}>
+              <Marker position={marker} icon={velienceMapIcon}>
                 <Popup>Marker </Popup>
               </Marker>
             </MapContainer>
@@ -147,7 +150,13 @@ export const CreateExperience = () => {
           </form>
         </Main>
       ) : (
-        <Main cName="nearby">You must be logged in to access this page</Main>
+        <Main cName="nearby text-box">
+          <section className="text-box">
+            <h2>You must be logged in to access this page</h2>
+            <Button text="Login" callback={() => setLogin(true)}></Button>
+            {login ? <LoginMenu callbackEvent={() => setLogin(false)} /> : null}
+          </section>
+        </Main>
       )}
     </>
   );

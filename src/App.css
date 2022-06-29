@@ -6,6 +6,15 @@
 
 :root {
   --velience-color: #00a3ff;
+  --velience-color-transparent: #00a2ff70;
+  --main-background: #e0e0e0;
+  --main-text-color: white;
+  --background-blue: #d3e2ec;
+  --inner-shadow: #c2c2c2;
+  --inner-box-light: rgb(255 255 255 / 15%);
+  --box-shadow: rgb(0 0 0 / 15%);
+  --half-transparent-background: #90909050;
+  --text-hard-shadow: rgb(0 0 0 / 40%);
 }
 
 .App {
@@ -24,27 +33,20 @@
   height: 0px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #e1e1e1;
+  background: var(--velience-color-transparent);
   border: 0px none #ffffff;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffffff;
+  background: var(--background-blue);
 }
-::-webkit-scrollbar-thumb:active {
-  background: #000000;
-}
+
 ::-webkit-scrollbar-track {
-  background: #666666;
+  background: var(--half-transparent-background);
   border: 0px none #ffffff;
   border-radius: 50px;
 }
-::-webkit-scrollbar-track:hover {
-  background: #666666;
-}
-::-webkit-scrollbar-track:active {
-  background: #333333;
-}
+
 ::-webkit-scrollbar-corner {
   background: transparent;
 }

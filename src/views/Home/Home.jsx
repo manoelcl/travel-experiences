@@ -10,26 +10,42 @@ import Background from "../../components/Background";
 import UserMenu from "../../components/UserMenu";
 import Button from "../../components/Button";
 import CardPicker from "../../components/CardPicker";
+import ErrorAlert from "../../components/ErrorAlert";
 //IMAGES
 import logo from "../../icons/Velience.svg";
 import nearby from "../../icons/Archery.svg";
 import explore from "../../icons/Internet.svg";
 
-import getStaffPicks from "../../services/getStaffPicks";
+import getStaffPicksService from "../../services/getStaffPicksService";
 import imageAddress from "../../helpers/imageAddress";
+import useInterval from "../../hooks/useInterval";
 
 export const Home = () => {
   const [experiences, setExperiences] = useState();
   const [currentCard, setCurrentCard] = useState(0);
+  const [error, setError] = useState();
   const navigate = useNavigate();
+
+  const staffPicksRequest = async () => {
+    const results = await getStaffPicksService();
+
+    if (results.error) {
+      setError(results.error);
+    } else {
+      setExperiences(results.data);
+    }
+  };
 
   useEffect(() => {
     const asyncRequest = async () => {
-      const results = await getStaffPicks();
-      setExperiences(results);
+      staffPicksRequest();
     };
     asyncRequest();
   }, []);
+
+  useInterval(() => {
+    setCurrentCard((currentCard + 1) % experiences?.length);
+  }, 5000);
 
   return (
     <>
@@ -53,11 +69,19 @@ export const Home = () => {
         <CardPicker
           eventCallback={(num) => setCurrentCard(num)}
           cardsArray={experiences}
+          focusedElement={currentCard}
         ></CardPicker>
         <Button color="blue" callback={() => navigate("/create")}>
           +
         </Button>
       </Main>
+      <ErrorAlert
+        error={error}
+        callbackEvent={() => {
+          setError(null);
+          staffPicksRequest();
+        }}
+      ></ErrorAlert>
       <Background
         img={
           experiences

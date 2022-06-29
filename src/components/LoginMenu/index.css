@@ -46,3 +46,6 @@
   cursor: pointer;
   color: var(--velience-color);
 }
+.login-menu form label {
+  text-align: left;
+}

@@ -15,10 +15,6 @@ main > .button {
   background-color: #00a2ff70;
 }
 
-main > :first-child {
-  margin-top: 2rem;
-}
-
 main > * {
   margin-bottom: 1.5rem;
 }

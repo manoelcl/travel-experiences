@@ -16,9 +16,8 @@ export const TextCard = ({
 
       <footer>
         <p>
-          Created by <ProfileSmall user={{ userId, username }}></ProfileSmall>
-          in
-          <DateField isoDate={creationDate}></DateField>
+          Created by <ProfileSmall user={{ userId, username }}></ProfileSmall>{" "}
+          in <DateField isoDate={creationDate}></DateField>
         </p>
       </footer>
     </article>

@@ -48,6 +48,7 @@ export const Nearby = () => {
   const navigate = useNavigate();
   const [center, setCenter] = useState();
   const [experiences, setExperiences] = useState();
+  const [currentExperience, setCurrentExperience] = useState();
 
   const updateExperiences = async () => {
     console.log(center);
@@ -118,9 +119,14 @@ export const Nearby = () => {
             {experiences?.map((experience, index) => {
               return (
                 <Marker
-                  key={index}
+                  key={experience.id}
                   position={[experience.lat, experience.lon]}
                   icon={velienceMapIcon}
+                  eventHandlers={{
+                    click: (e) => {
+                      setCurrentExperience(experience.id);
+                    },
+                  }}
                 >
                   <Popup>{experience.title}</Popup>
                 </Marker>
@@ -131,7 +137,10 @@ export const Nearby = () => {
           <p>Geolocating...</p>
         )}
         {experiences ? (
-          <CardList cards={experiences}></CardList>
+          <CardList
+            selectedId={currentExperience}
+            cards={experiences}
+          ></CardList>
         ) : (
           <div className="card-list">
             <h2>No experiences were found in your area</h2>

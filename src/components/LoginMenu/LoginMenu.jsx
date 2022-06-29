@@ -4,11 +4,12 @@ import loginService from "../../services/loginService";
 import registerService from "../../services/registerService";
 import { UserContext } from "../../helpers/Context";
 import InteractionBackground from "../InteractionBackground";
+import { useNavigate } from "react-router-dom";
 
 export const LoginMenu = ({ callbackEvent }) => {
   const [register, setRegister] = useState("Login");
   const [formData, setFormData] = useState({ email: "", password: "" });
-
+  const navigate = useNavigate();
   const { setToken } = useContext(UserContext);
 
   const inputHandler = (e) => {
@@ -24,6 +25,20 @@ export const LoginMenu = ({ callbackEvent }) => {
     }
   };
 
+  const handleRegister = async () => {
+    const response = await registerService({
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      role: "user",
+    });
+    console.log(response.status, response.status === "ok");
+    if (response.status === "ok") {
+      console.log("registrado");
+      navigate(`/users/${response.data}`);
+    }
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     switch (register) {
@@ -35,13 +50,7 @@ export const LoginMenu = ({ callbackEvent }) => {
           console.log("Passwords must be equal");
           return;
         }
-        registerService({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          role: "user",
-        });
-
+        handleRegister();
         break;
       case "Recover":
         console.log("To be implemented");

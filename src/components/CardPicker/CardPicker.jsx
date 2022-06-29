@@ -7,10 +7,8 @@ import { useEffect, useRef, useState } from "react";
 
 import arrow from "../../icons/Arrow.svg";
 
-export const CardPicker = ({ cardsArray, eventCallback }) => {
+export const CardPicker = ({ cardsArray, eventCallback, focusedElement }) => {
   const ref = useRef();
-
-  const [focusedElement, setFocusedElement] = useState(0);
 
   useEffect(() => {
     if (eventCallback) eventCallback(focusedElement);
@@ -27,7 +25,9 @@ export const CardPicker = ({ cardsArray, eventCallback }) => {
       <h2>Staff picks:</h2>
       <Button
         callback={() =>
-          setFocusedElement(Math.abs(focusedElement - 1) % cardsArray.length)
+          eventCallback(
+            (cardsArray.length + focusedElement - 1) % cardsArray.length
+          )
         }
       >
         <img src={arrow}></img>
@@ -35,7 +35,7 @@ export const CardPicker = ({ cardsArray, eventCallback }) => {
       <div ref={ref} className="card-container">
         {cardsArray.map((card, index) => (
           <Card
-            onclick={() => setFocusedElement(index)}
+            onclick={() => eventCallback(index)}
             key={card.id}
             cardData={card}
             classSpecial={index === focusedElement ? "highlighted" : null}
@@ -45,7 +45,7 @@ export const CardPicker = ({ cardsArray, eventCallback }) => {
       <Button
         callback={() => {
           console.log("pulsado");
-          setFocusedElement((focusedElement + 1) % cardsArray.length);
+          eventCallback((focusedElement + 1) % cardsArray.length);
         }}
       >
         <img src={arrow}></img>

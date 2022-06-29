@@ -10,7 +10,7 @@ import ButtonsMenu from "../../components/ButtonsMenu";
 
 import backArrowIcon from "../../icons/BackArrow.svg";
 import { useNavigate, useParams } from "react-router-dom";
-import getExperienceById from "../../services/getExperienceById";
+import getExperienceByIdService from "../../services/getExperienceByIdService";
 import { useContext, useEffect, useState } from "react";
 import Comments from "../../components/Comments";
 import InteractionBackground from "../../components/InteractionBackground";
@@ -32,7 +32,7 @@ export const Experience = () => {
 
   useEffect(() => {
     const asyncRequest = async () => {
-      const results = await getExperienceById(id);
+      const results = await getExperienceByIdService(id);
       console.log(results);
       setExperience(results);
     };
@@ -43,7 +43,7 @@ export const Experience = () => {
     console.log(userInput);
     const response = await voteExperienceService(id, userInput, token);
     if (response.status === "ok") {
-      const results = await getExperienceById(id);
+      const results = await getExperienceByIdService(id);
       setExperience(results);
     } else {
       setError(response);

@@ -1,0 +1,8 @@
+.web-share-fade-in-up header {
+  background-image: none;
+}
+
+.leaflet-top.leaflet-left {
+  top: 5rem;
+  left: 0.5rem;
+}

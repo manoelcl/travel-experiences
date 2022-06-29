@@ -1,6 +1,6 @@
 import { BACKEND } from "../env";
 
-const getExperienceById = async (id) => {
+const getExperienceByIdService = async (id) => {
   try {
     console.log(id);
     const request = await fetch(`${BACKEND}/recommendations/${id}`);
@@ -12,4 +12,4 @@ const getExperienceById = async (id) => {
   }
 };
 
-export default getExperienceById;
+export default getExperienceByIdService;

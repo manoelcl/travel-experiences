@@ -4,13 +4,9 @@
   height: 33vh;
 }
 
-.leaflet-top.leaflet-left {
-  top: 50px;
-}
-
 main.nearby {
   height: 100vh;
-  background-color: #e0e0e0;
+  background-color: var(--main-background);
   justify-content: flex-start;
 }
 
@@ -21,7 +17,7 @@ main.nearby .card {
 main.nearby .card-list {
   display: flex;
   margin: 1rem;
-  box-shadow: 3px 3px 3px #c2c2c2 inset;
+  box-shadow: 3px 3px 3px var(--inner-shadow) inset;
   max-height: 60vh;
   width: min(calc(100% - 1rem), 800px);
   border-radius: 1rem;
@@ -32,5 +28,5 @@ main.nearby .card-list {
   flex-wrap: wrap;
   justify-content: space-evenly;
   overflow: auto;
-  background-color: #d3e2ec;
+  background-color: var(--background-blue);
 }

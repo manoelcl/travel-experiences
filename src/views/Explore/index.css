@@ -1,0 +1,20 @@
+.explore-bar {
+  display: flex;
+  gap: 1rem;
+  border-radius: 1rem;
+  align-items: center;
+  background-color: var(--half-transparent-background);
+  margin-bottom: 0;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  text-shadow: 2px 2px 2px var(--text-hard-shadow);
+  box-shadow: 4px 4px 4px var(--box-shadow),
+    2px 2px 2px inset var(--inner-box-light);
+}
+.explore-bar fieldset {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

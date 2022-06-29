@@ -4,21 +4,10 @@
   height: 33vh;
 }
 
-.leaflet-top.leaflet-left {
-  top: 45px;
-}
-
 main.create-experience {
   height: 100vh;
   justify-content: flex-start;
   background-color: #e0e0e0;
-  background-image: linear-gradient(
-    90deg,
-    #00a2ff50,
-    transparent 15%,
-    transparent 85%,
-    #00a3ff50
-  );
 }
 
 main.create-experience .card {
@@ -48,4 +37,21 @@ main.create-experience form fieldset {
 
 main.create-experience form fieldset {
   border: none;
+}
+
+main.text-box {
+  display: flex;
+  justify-content: center;
+}
+main.text-box > section.text-box {
+  padding: 1rem;
+  background-color: var(--half-transparent-background);
+  border-radius: 1rem;
+}
+main.text-box > section.text-box > * {
+  margin: auto;
+}
+main.text-box > section.text-box > h2 {
+  color: var(--main-text-color);
+  text-shadow: 2px 2px 2px var(--text-hard-shadow);
 }

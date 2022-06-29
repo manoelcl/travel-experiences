@@ -1,0 +1,79 @@
+main.user-profile {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "normal1 normal2"
+    "experiences experiences";
+  color: white;
+  height: 100vh;
+  background-color: #e0e0e0;
+  padding-top: 6rem;
+  justify-content: center;
+  align-content: space-between;
+  align-items: stretch;
+  overflow: auto;
+}
+
+main.user-profile .card {
+  margin: 1rem 1rem;
+}
+main.user-profile h2 {
+  text-shadow: 3px 3px 3px rgb(0 0 0 / 25%);
+}
+
+main.user-profile > :not(.card-list):first-child {
+  grid-area: normal1;
+  margin: 1rem;
+}
+
+main.user-profile > :not(.card-list):nth-child(2) {
+  margin: 1rem;
+  grid-area: normal2;
+  background-color: #b4b3b3;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 3px 3px 3px inset var(--inner-box-light),
+    -3px -3px 3px inset var(--half-transparent-background);
+}
+
+main.user-profile .cards-section {
+  grid-area: experiences;
+  margin: 1rem;
+}
+main.user-profile .cards-section h2 {
+  text-align: center;
+}
+main.user-profile .card-list {
+  display: flex;
+  margin: 0 auto;
+  box-shadow: 3px 3px 3px var(--inner-shadow) inset;
+  width: min(calc(100vw - 1rem), 800px);
+  border-radius: 1rem;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  background-color: #d3e2ec;
+}
+.nearby h1 {
+  color: white;
+  text-shadow: 3px 3px 3px var(--text-hard-shadow);
+}
+main.user-profile figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  main.user-profile {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "normal1" "normal2"
+      "experiences";
+  }
+}

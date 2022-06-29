@@ -32,10 +32,12 @@ export const Comments = ({ id }) => {
     const response = await postCommentService(id, data, token);
     e.target.value = "";
     if (response.status === "ok") {
-      setComments([
-        { ...response.data, username: myUser.username },
-        ...comments,
-      ]);
+      comments
+        ? setComments([
+            { ...response.data, username: myUser.username },
+            ...comments,
+          ])
+        : setComments([{ ...response.data, username: myUser.username }]);
       console.log(response.data.userId);
     }
     e.target.reset();
